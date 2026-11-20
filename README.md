@@ -297,6 +297,8 @@ No. Export is synchronous and process-local. Manifest validation can reduce repe
 
 Report fork-specific problems in [this repository's issues](https://github.com/MageLens/pcov/issues), including PHP version, SAPI, extension settings and export mode. Published versions are listed under [releases](https://github.com/MageLens/pcov/releases).
 
+For project inquiries, visit [MageLens](https://magelens.dev/) or email [hello@magelens.dev](mailto:hello@magelens.dev).
+
 ## License
 
 This fork, including its additions, is licensed under the upstream [PHP License 3.01](LICENSE). Commercial use, modification and redistribution are permitted under its terms, with the required notices and acknowledgments preserved.

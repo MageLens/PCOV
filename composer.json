@@ -4,10 +4,20 @@
     "license": "PHP-3.01",
     "description": "PCOV fork for PHP line coverage with synchronous native export and executable-line manifest reuse for large test suites",
     "keywords": ["php", "pcov", "code-coverage", "phpunit", "testing", "php-extension", "magento2"],
-    "homepage": "https://github.com/MageLens/pcov",
+    "homepage": "https://magelens.dev/",
+    "authors": [
+        {
+            "name": "MageLens",
+            "email": "hello@magelens.dev",
+            "homepage": "https://magelens.dev/",
+            "role": "Fork maintainer"
+        }
+    ],
     "support": {
+        "email": "hello@magelens.dev",
         "issues": "https://github.com/MageLens/pcov/issues",
-        "source": "https://github.com/MageLens/pcov"
+        "source": "https://github.com/MageLens/pcov",
+        "docs": "https://github.com/MageLens/pcov#readme"
     },
     "require": {
         "php": ">=8.3 <8.6"
