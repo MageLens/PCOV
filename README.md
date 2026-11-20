@@ -1,5 +1,7 @@
 # PCOV fork: PHP code coverage for large test suites
 
+Copyright (c) MageLens for original contributions to this fork. The upstream
+copyright notices and [PHP License 3.01](LICENSE) apply.
 This is an alternative distribution of [PCOV](https://github.com/krakjoe/pcov)
 for aggregate coverage of large PHP test suites. It keeps PCOV's fast opcode
 recording and all upstream APIs, and adds a synchronous native export path that
@@ -28,14 +30,17 @@ across an entire suite, not for a standalone request report.
 
 ## Requirements and installation
 
-Release 2.1.2 supports Linux, NTS PHP 8.3, 8.4, and 8.5. It uses the extension
+Release 2.1.3 supports Linux, NTS PHP 8.3, 8.4, and 8.5. It uses the extension
 name `pcov`, so it replaces and cannot be loaded beside official PCOV.
 
 Install with [PIE](https://github.com/php/pie), the PHP extension installer:
 
 ```sh
-pie install vitaliyboyko/pcov
+pie install magelens/pcov
 ```
+
+Version 2.1.3 moves the package to `magelens/pcov`. Existing releases remain
+available as `vitaliyboyko/pcov`.
 
 Or build from source:
 
@@ -276,7 +281,7 @@ See [cache details](docs/manifest-and-records.md#native-magento-export-cache-212
 
 ### Is this the upstream PCOV package?
 
-No. This is `vitaliyboyko/pcov`, an alternative distribution of [krakjoe/pcov](https://github.com/krakjoe/pcov). It uses the same extension name and preserves the upstream collection API. Install one distribution at a time; use a dedicated coverage SAPI without Xdebug or phpdbg coverage hooks.
+No. This is `magelens/pcov`, an alternative distribution of [krakjoe/pcov](https://github.com/krakjoe/pcov). It uses the same extension name and preserves the upstream collection API. Install one distribution at a time; use a dedicated coverage SAPI without Xdebug or phpdbg coverage hooks.
 
 ### Does the manifest workflow run automatically in PHPUnit?
 
@@ -288,9 +293,9 @@ No. Export is synchronous and process-local. Manifest validation can reduce repe
 
 ### Where can I see a Magento integration?
 
-[MageLens](https://github.com/VitaliyBoyko/MageLens) uses this fork for PHP coverage from Cypress or Playwright HTTP requests and combines it with JavaScript and [template coverage](https://github.com/VitaliyBoyko/magento-template-coverage). The [benchmark data](benchmark/measurements/) records specific test environments; it is not a performance guarantee for other workloads.
+[MageLens](https://github.com/MageLens/MageLens) uses this fork for PHP coverage from Cypress or Playwright HTTP requests and combines it with JavaScript and [template coverage](https://github.com/MageLens/magento-template-coverage). The [benchmark data](benchmark/measurements/) records specific test environments; it is not a performance guarantee for other workloads.
 
-Report fork-specific problems in [this repository's issues](https://github.com/VitaliyBoyko/pcov/issues), including PHP version, SAPI, extension settings and export mode. Published versions are listed under [releases](https://github.com/VitaliyBoyko/pcov/releases).
+Report fork-specific problems in [this repository's issues](https://github.com/MageLens/pcov/issues), including PHP version, SAPI, extension settings and export mode. Published versions are listed under [releases](https://github.com/MageLens/pcov/releases).
 
 ## License
 

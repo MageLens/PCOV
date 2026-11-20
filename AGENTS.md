@@ -2,7 +2,7 @@
 
 ## Project identity and scope
 
-This is VitaliyBoyko's PCOV fork: a native PHP line-coverage extension with synchronous coverage export, immutable executable-line manifests, and optional native Magento GET coverage caching. It is not the upstream `krakjoe/pcov` release. Start with [README.md](README.md) for usage and [docs/manifest-and-records.md](docs/manifest-and-records.md) for the record contract.
+This is MageLens's PCOV fork: a native PHP line-coverage extension with synchronous coverage export, immutable executable-line manifests, and optional native Magento GET coverage caching. It is not the upstream `krakjoe/pcov` release. Start with [README.md](README.md) for usage and [docs/manifest-and-records.md](docs/manifest-and-records.md) for the record contract.
 
 The supported release target is Linux, non-thread-safe PHP 8.3, 8.4 and 8.5, as declared by `composer.json`, `config.m4` and CI. Legacy `cfg/701/` through `cfg/704/` and `config.w32` are retained source, not evidence of current PHP 7, Windows or ZTS support.
 
