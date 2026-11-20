@@ -16,8 +16,8 @@ if test "$PHP_PCOV" != "no"; then
 
   AC_MSG_CHECKING(PHP version)
 
-  if test $PHP_VERSION -lt 80300 -o $PHP_VERSION -ge 80600; then
-    AC_MSG_ERROR([this PCOV release supports PHP 8.3, 8.4, and 8.5])
+  if test $PHP_VERSION -lt 80300 -o $PHP_VERSION -ge 80700; then
+    AC_MSG_ERROR([this PCOV release supports PHP 8.3, 8.4, 8.5, and 8.6])
   fi
 
   AC_MSG_RESULT($PHP_VERSION)

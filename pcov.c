@@ -103,7 +103,7 @@ PHP_PCOV_API bool php_pcov_api_enabled(void) {
 		return false;
 	}
 
-	return INI_BOOL("pcov.enabled");
+	return zend_ini_long(ZEND_STRL("pcov.enabled"), 0);
 }
 
 #define PHP_PCOV_API_ENABLED_GUARD() do { \
@@ -458,7 +458,7 @@ const char *php_pcov_directory_defaults[] = { /* {{{ */
 	NULL
 }; /* }}} */
 
-static  void php_pcov_setup_directory(char *directory) { /* {{{ */
+static  void php_pcov_setup_directory(const char *directory) { /* {{{ */
 	char        realpath[MAXPATHLEN];
 	zend_stat_t statbuf;
 
@@ -483,7 +483,7 @@ static  void php_pcov_setup_directory(char *directory) { /* {{{ */
 	PCG(directory) = zend_string_init(directory, strlen(directory), 0);
 } /* }}} */
 
-static zend_always_inline void php_pcov_setup_exclude(char *exclude) { /* {{{ */
+static zend_always_inline void php_pcov_setup_exclude(const char *exclude) { /* {{{ */
 	zend_string *pattern;
 
 	if (!exclude || !*exclude) {
@@ -517,22 +517,22 @@ PHP_RINIT_FUNCTION(pcov)
 		return SUCCESS;
 	}
 
-	PCG(mem) = zend_arena_create(INI_INT("pcov.initial.memory"));
+	PCG(mem) = zend_arena_create(zend_ini_long(ZEND_STRL("pcov.initial.memory"), 0));
 
-	zend_hash_init(&PCG(files),      INI_INT("pcov.initial.files"), NULL, php_pcov_files_dtor, 0);
-	zend_hash_init(&PCG(waiting),    INI_INT("pcov.initial.files"), NULL, NULL, 0);
-	zend_hash_init(&PCG(ignores),    INI_INT("pcov.initial.files"), NULL, NULL, 0);
-	zend_hash_init(&PCG(wants),      INI_INT("pcov.initial.files"), NULL, NULL, 0);
-	zend_hash_init(&PCG(discovered), INI_INT("pcov.initial.files"), NULL, ZVAL_PTR_DTOR, 0);
-	zend_hash_init(&PCG(covered),    INI_INT("pcov.initial.files"), NULL, php_pcov_covered_dtor, 0);
-	zend_hash_init(&PCG(fingerprints), INI_INT("pcov.initial.files"), NULL, ZVAL_PTR_DTOR, 0);
+	zend_hash_init(&PCG(files),      zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, php_pcov_files_dtor, 0);
+	zend_hash_init(&PCG(waiting),    zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, NULL, 0);
+	zend_hash_init(&PCG(ignores),    zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, NULL, 0);
+	zend_hash_init(&PCG(wants),      zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, NULL, 0);
+	zend_hash_init(&PCG(discovered), zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, ZVAL_PTR_DTOR, 0);
+	zend_hash_init(&PCG(covered),    zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, php_pcov_covered_dtor, 0);
+	zend_hash_init(&PCG(fingerprints), zend_ini_long(ZEND_STRL("pcov.initial.files"), 0), NULL, ZVAL_PTR_DTOR, 0);
 	PCG(compile_fingerprint_ns) = 0;
 	PCG(compile_fingerprint_files) = 0;
 	memset(&PCG(compile_fingerprint_metrics), 0,
 		sizeof(PCG(compile_fingerprint_metrics)));
 
-	php_pcov_setup_directory(INI_STR("pcov.directory"));
-	php_pcov_setup_exclude(INI_STR("pcov.exclude"));
+	php_pcov_setup_directory(zend_ini_string_ex(ZEND_STRL("pcov.directory"), 0, NULL));
+	php_pcov_setup_exclude(zend_ini_string_ex(ZEND_STRL("pcov.exclude"), 0, NULL));
 
 #ifdef ZEND_COMPILE_NO_JUMPTABLES
 	CG(compiler_options) |= ZEND_COMPILE_NO_JUMPTABLES;
@@ -600,8 +600,8 @@ PHP_RSHUTDOWN_FUNCTION(pcov)
 PHP_MINFO_FUNCTION(pcov)
 {
 	char info[64];
-	char *directory = INI_STR("pcov.directory");
-	char *exclude   = INI_STR("pcov.exclude");
+	const char *directory = zend_ini_string_ex(ZEND_STRL("pcov.directory"), 0, NULL);
+	const char *exclude   = zend_ini_string_ex(ZEND_STRL("pcov.exclude"), 0, NULL);
 	(void) zend_module;
 
 	php_info_print_table_start();
@@ -614,10 +614,10 @@ PHP_MINFO_FUNCTION(pcov)
 		PHP_PCOV_VERSION);
 	php_info_print_table_row(2,
 		"pcov.large_codebase",
-		INI_BOOL("pcov.large_codebase") ? "enabled" : "disabled");
+		zend_ini_long(ZEND_STRL("pcov.large_codebase"), 0) ? "enabled" : "disabled");
 	php_info_print_table_row(2,
 		"pcov.request_magento_cache",
-		INI_BOOL("pcov.request_magento_cache") ? "enabled" : "disabled");
+		zend_ini_long(ZEND_STRL("pcov.request_magento_cache"), 0) ? "enabled" : "disabled");
 	php_info_print_table_row(2,
 		"pcov.directory",
 		directory && *directory ? directory : (PCG(directory) ? ZSTR_VAL(PCG(directory)) : "auto"));
@@ -627,13 +627,13 @@ PHP_MINFO_FUNCTION(pcov)
 
 	snprintf(info, sizeof(info),
 		ZEND_LONG_FMT " bytes",
-		(zend_long) INI_INT("pcov.initial.memory"));
+		(zend_long) zend_ini_long(ZEND_STRL("pcov.initial.memory"), 0));
 	php_info_print_table_row(2,
 		"pcov.initial.memory", info);
 
 	snprintf(info, sizeof(info),
 		ZEND_LONG_FMT,
-		(zend_long) INI_INT("pcov.initial.files"));
+		(zend_long) zend_ini_long(ZEND_STRL("pcov.initial.files"), 0));
 	php_info_print_table_row(2,
 		"pcov.initial.files", info);
 
@@ -1037,7 +1037,7 @@ PHP_NAMED_FUNCTION(php_pcov_clear)
 
 	PCG(mem) =
 		zend_arena_create(
-			INI_INT("pcov.initial.memory"));
+			zend_ini_long(ZEND_STRL("pcov.initial.memory"), 0));
 
 	PCG(start) = NULL;
 	PCG(last) = NULL;
