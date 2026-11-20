@@ -1,13 +1,13 @@
 {
-    "name": "vitaliyboyko/pcov",
+    "name": "magelens/pcov",
     "type": "php-ext",
     "license": "PHP-3.01",
     "description": "PCOV fork for PHP line coverage with synchronous native export and executable-line manifest reuse for large test suites",
     "keywords": ["php", "pcov", "code-coverage", "phpunit", "testing", "php-extension", "magento2"],
-    "homepage": "https://github.com/VitaliyBoyko/pcov",
+    "homepage": "https://github.com/MageLens/pcov",
     "support": {
-        "issues": "https://github.com/VitaliyBoyko/pcov/issues",
-        "source": "https://github.com/VitaliyBoyko/pcov"
+        "issues": "https://github.com/MageLens/pcov/issues",
+        "source": "https://github.com/MageLens/pcov"
     },
     "require": {
         "php": ">=8.3 <8.6"
