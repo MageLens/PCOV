@@ -94,6 +94,7 @@ static zend_string *php_pcov_request_cache_context(zend_string *path) {
 /* Compare native bytes against the CURRENT validated files and sorted hits.
  * No URL-only hit can suppress new coverage or reuse a different filter result.
  * Entries are trusted process-owned records, but bounds are still checked. */
+#ifndef ZTS
 static zend_bool php_pcov_request_cache_matches(zend_string *record,
 		php_pcov_manifest_file_t *files, size_t file_count,
 		php_pcov_dump_hit_t *hits, size_t hit_count,
@@ -131,6 +132,7 @@ static zend_bool php_pcov_request_cache_matches(zend_string *record,
 #undef PCOV_CACHE_U32
 	return cursor == end && hit == hit_count;
 }
+#endif
 
 static zend_string *php_pcov_request_cache_lookup(zend_string *context,
 		php_pcov_manifest_file_t *files, size_t file_count,

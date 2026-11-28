@@ -672,7 +672,11 @@ static void php_pcov_discover_code(
 	zend_cfg cfg;
 	zend_basic_block *block;
 	zend_op *limit = ops->opcodes + ops->last;
+#if PHP_VERSION_ID >= 80600
+	uint32_t i = 0;
+#else
 	int i = 0;
+#endif
 
 	if (ops->fn_flags & ZEND_ACC_ABSTRACT) {
 		return;
