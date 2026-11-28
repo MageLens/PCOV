@@ -1,7 +1,7 @@
 --TEST--
 Native Magento cache never bypasses deployment manifest or source validation
 --SKIPIF--
-<?php if (!extension_loaded('pcov') || !function_exists('proc_open')) print 'skip'; ?>
+<?php if (!extension_loaded('pcov') || !function_exists('proc_open')) print 'skip'; elseif (PHP_ZTS) print 'skip NTS required'; ?>
 --INI--
 pcov.enabled=1
 pcov.large_codebase=1

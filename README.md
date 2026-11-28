@@ -30,7 +30,7 @@ across an entire suite, not for a standalone request report.
 
 ## Requirements and installation
 
-Release 2.1.3 supports Linux, NTS PHP 8.3, 8.4, and 8.5. It uses the extension
+The source supports Linux, NTS PHP 8.3, 8.4, 8.5, and 8.6. It uses the extension
 name `pcov`, so it replaces and cannot be loaded beside official PCOV.
 
 Install with [PIE](https://github.com/php/pie), the PHP extension installer:
